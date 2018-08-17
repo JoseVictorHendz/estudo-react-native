@@ -1,36 +1,50 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation'
 
-import PropsExamples from './PropsExamples'
+// import PropsExamples from './PropsExamples'
+import Counter from './Counter'
+
+
 
 class App extends Component {
+  static navigationOptions = {
+    title: 'Home'
+  }
+
   constructor(props) {
     super(props)
 
     this.state = {
-      msg: 'Hello World',
-      msg1: 'Top'
+      msg: 'first page',
     }
   }
 
-  componentDidMount() {
-    this.setState({
-      msg: 'Hello José!'
-    })
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     msg: 'Counter'
+  //   })
+  // }
 
   render() {
-    const { msg, msg1 } = this.state
+    let { navigate } = this.props.navigation
+    const { msg } = this.state
     return (
       <View style={styles.container}>
+        <Button title = 'Counter' onPress = { () => navigate('Counter')}></Button>
         <Text>{ msg }</Text>
-        <PropsExamples name = 'jose'></PropsExamples>
-        <Text>{ msg1 }</Text>
       </View>
     );
   }
 }
-export default App
+
+const StackApp = StackNavigator({
+  Home: { screen: App },
+  Counter: { screen: Counter }
+})
+
+// export default App
+export default StackApp
 
 const styles = StyleSheet.create({
   container: {
